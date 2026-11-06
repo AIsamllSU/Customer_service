@@ -1,0 +1,48 @@
+[project]
+name = "customer-service-backend"
+version = "1.0"
+description = "电商小二"
+requires-python = ">=3.12"
+dependencies = [
+    "aiomysql>=0.3.2",
+    "aiosqlite>=0.22.1",
+    "cryptography>=46.0.7",
+    "fastapi>=0.136.0",
+    "httpx>=0.28.1",
+    "jinja2>=3.1.6",
+    "langchain>=1.2.15",
+    "langchain-openai>=1.1.14",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.13.1",
+    "pyyaml>=6.0.3",
+    "sqlalchemy>=2.0.49",
+    "uvicorn>=0.44.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F：语法与未用变量；I：导入排序；UP：现代写法；B/SIM：常见陷阱与可简化逻辑
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# FastAPI 的 Depends(...) 必须写在函数默认参数里，这是框架约定
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+# 只收集接口测试与计划模型测试目录，避免把教学用的演示脚本当成测试用例
+testpaths = ["atguigu/test/api", "atguigu/test/plan", "atguigu/test/task", "atguigu/test/knowledge"]
+pythonpath = ["."]
+addopts = "-q"
+# 以下两条是第三方库自身的弃用告警（anyio 对 pytest 9、starlette 对 httpx），
+# 项目代码没有触发任何告警；等上游发布兼容版本后删除这两条过滤即可。
+filterwarnings = [
+    "ignore::pytest.PytestRemovedIn10Warning",
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated.*:starlette.exceptions.StarletteDeprecationWarning",
+]

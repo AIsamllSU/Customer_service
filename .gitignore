@@ -1,0 +1,45 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---------- 虚拟环境 ----------
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# ---------- Node / 前端 ----------
+node_modules/
+.vite/
+npm-debug.log*
+yarn-error.log*
+
+# ---------- 本地数据 / 日志 ----------
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+
+# ---------- 测试与检查缓存 ----------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---------- IDE / OS ----------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

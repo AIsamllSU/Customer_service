@@ -1,0 +1,31 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---------- 虚拟环境 ----------
+.venv/
+venv/
+.env
+!.env.example
+
+# ---------- 本地数据 / 日志 ----------
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+# Day01 ORM 练习脚本生成的本地 sqlite 文件（无扩展名）
+mydb
+async_mydb
+
+# ---------- IDE / OS ----------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
