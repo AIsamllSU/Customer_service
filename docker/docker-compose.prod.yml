@@ -1,0 +1,75 @@
+# 生产环境编排：只暴露前端一个端口，其余服务走容器内网
+# 用法：在 docker 目录执行
+#   docker compose -f docker-compose.prod.yml up -d --build
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: cs-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-this-root-password}
+      MYSQL_USER: customer_service
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-change-this-db-password}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  ecommerce:
+    build: ../ecommerce-service-backend
+    container_name: cs-ecommerce
+    restart: always
+    environment:
+      DATABASE_URL: mysql+pymysql://customer_service:${MYSQL_PASSWORD:-change-this-db-password}@mysql:3306/commerce?charset=utf8mb4
+      APP_HOST: 0.0.0.0
+      APP_PORT: "18081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:18081/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  customer-service:
+    build: ../customer-service-backend
+    container_name: cs-backend
+    restart: always
+    # 数据库密码和模型 Key 都从后端 .env 读取，不会打进镜像
+    env_file: ../customer-service-backend/.env
+    environment:
+      DATABASE_URL: mysql+aiomysql://customer_service:${MYSQL_PASSWORD:-change-this-db-password}@mysql:3306/customer_service?charset=utf8mb4
+      COMMERCE_API_BASE_URL: http://ecommerce:18081
+      APP_HOST: 0.0.0.0
+      APP_PORT: "18082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      ecommerce:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:18082/openapi.json', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  frontend:
+    build: ../customer-service-frontend
+    container_name: cs-frontend
+    restart: always
+    ports:
+      - "${PUBLIC_PORT:-80}:80"
+    depends_on:
+      customer-service:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
