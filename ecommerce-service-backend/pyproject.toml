@@ -1,7 +1,7 @@
 [project]
-name = "atguigu-ecommerce-service"
+name = "ecommerce-service"
 version = "0.1.0"
-description = "Mock e-commerce support service for the atguigu customer-service demo."
+description = "电商业务服务，为客服系统提供订单、物流与商品数据接口。"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [

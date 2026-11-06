@@ -20,7 +20,7 @@ data/
 *.sqlite
 *.sqlite3
 *.log
-# Day01 ORM 练习脚本生成的本地 sqlite 文件（无扩展名）
+# ORM 练习脚本生成的本地 sqlite 文件（无扩展名）
 mydb
 async_mydb
 

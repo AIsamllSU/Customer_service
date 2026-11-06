@@ -1,6 +1,6 @@
 ﻿<script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import xiaoerAvatar from './assets/xiaoer.png'
+import assistantAvatar from './assets/assistant.png'
 import userProfileAvatar from './assets/userProfileAvatar.svg'
 
 const senderId = ref('u1001')
@@ -143,9 +143,9 @@ function initBg() {
 
 // 客服数字人配置
 const customerService = {
-  name: '小谷',
+  name: '小智',
   title: '金牌客服',
-  avatar: xiaoerAvatar,
+  avatar: assistantAvatar,
   status: '在线'
 }
 
@@ -659,7 +659,7 @@ async function copyBotText(botMsg) {
             <div class="welcome-card">
               <div class="welcome-glow"></div>
               <div class="welcome-avatar-wrapper">
-                <img :src="customerService.avatar" class="welcome-avatar" alt="小谷" />
+                <img :src="customerService.avatar" class="welcome-avatar" alt="客服助手" />
                 <span class="welcome-status-pulse"></span>
               </div>
               <h2 class="welcome-greeting">Hi，我是 {{ customerService.name }}</h2>
@@ -820,13 +820,13 @@ async function copyBotText(botMsg) {
 
         <div v-if="isSending" class="typing-indicator">
           <div class="typing-avatar">
-            <img :src="customerService.avatar" class="avatar-small" alt="小谷" />
+            <img :src="customerService.avatar" class="avatar-small" alt="客服助手" />
           </div>
           <div class="typing-bubble">
             <span class="typing-dots">
               <span></span><span></span><span></span>
             </span>
-            <span class="typing-label">小谷正在输入...</span>
+            <span class="typing-label">小智正在输入...</span>
           </div>
         </div>
 

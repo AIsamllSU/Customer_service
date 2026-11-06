@@ -1,7 +1,7 @@
 [project]
 name = "customer-service-backend"
 version = "1.0"
-description = "电商小二"
+description = "电商智能客服系统后端"
 requires-python = ">=3.12"
 dependencies = [
     "aiomysql>=0.3.2",
@@ -36,8 +36,8 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 ignore = ["B008"]
 
 [tool.pytest.ini_options]
-# 只收集接口测试与计划模型测试目录，避免把教学用的演示脚本当成测试用例
-testpaths = ["atguigu/test/api", "atguigu/test/plan", "atguigu/test/task", "atguigu/test/knowledge"]
+# 只收集正式测试目录，避免把调试脚本当成测试用例
+testpaths = ["customer_service/test/api", "customer_service/test/plan", "customer_service/test/task", "customer_service/test/knowledge"]
 pythonpath = ["."]
 addopts = "-q"
 # 以下两条是第三方库自身的弃用告警（anyio 对 pytest 9、starlette 对 httpx），

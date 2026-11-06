@@ -5,8 +5,8 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: atguigu
-      MYSQL_PASSWORD: Atguigu.123
+      MYSQL_USER: customer_service
+      MYSQL_PASSWORD: Cs123456
     ports:
       - "3307:3306"
     command:
@@ -26,7 +26,7 @@ services:
     container_name: customer-service-ecommerce
     restart: unless-stopped
     environment:
-      DATABASE_URL: mysql+pymysql://atguigu:Atguigu.123@mysql:3306/commerce?charset=utf8mb4
+      DATABASE_URL: mysql+pymysql://customer_service:Cs123456@mysql:3306/commerce?charset=utf8mb4
       APP_HOST: 0.0.0.0
       APP_PORT: "18081"
     ports:
@@ -48,7 +48,7 @@ services:
     # 数据库与电商服务地址由下方 environment 覆盖为容器网络地址
     env_file: ../customer-service-backend/.env
     environment:
-      DATABASE_URL: mysql+aiomysql://atguigu:Atguigu.123@mysql:3306/customer_service?charset=utf8mb4
+      DATABASE_URL: mysql+aiomysql://customer_service:Cs123456@mysql:3306/customer_service?charset=utf8mb4
       COMMERCE_API_BASE_URL: http://ecommerce:18081
       APP_HOST: 0.0.0.0
       APP_PORT: "18082"

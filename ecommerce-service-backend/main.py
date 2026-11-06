@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Atguigu 电商业务服务启动脚本
+电商业务服务启动脚本
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from app.config import settings
 
 def main():
     """启动 FastAPI 应用"""
-    print(f"🚀 正在启动 Atguigu 电商业务服务...")
+    print("正在启动电商业务服务...")
     print(f"📍 API 地址: http://{settings.app_host}:{settings.app_port}")
     print(f"📚 API 文档: http://{settings.app_host}:{settings.app_port}/docs")
     

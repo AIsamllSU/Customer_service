@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS `customer_service`
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_unicode_ci;
 
-GRANT ALL PRIVILEGES ON `customer_service`.* TO 'atguigu'@'%';
+GRANT ALL PRIVILEGES ON `customer_service`.* TO 'customer_service'@'%';
 FLUSH PRIVILEGES;
 
 USE `customer_service`;
